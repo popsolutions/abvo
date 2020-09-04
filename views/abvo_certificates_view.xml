@@ -1,0 +1,20 @@
+<odoo>
+  <data>
+    <record id="abvo_certificates_form" model="ir.ui.view" >
+      <field name="name">abvo.certificates.form</field>
+      <field name="model">abvo.certificates</field>
+      <field name="arch" type="xml">
+        <form>
+            <grpup>
+                <field name="date"/>
+                <field name="certificate_type"/>
+                <field name="raiting"/>
+                <field name="loa"/>
+                <field name="invoice_id"/>
+                <field name="pdf"/>
+            </grpup>  
+        </form>
+      </field>
+    </record> 
+  </data>
+</odoo>

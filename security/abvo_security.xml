@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="group_abvo_manager" model="res.groups">
+        <field name="name">ABVO Certificates Manager</field>
+        <!-- <field name="implied_ids" eval="[(4, ref('abvo.access_abvo_certificates_user'))]"/>
+        <field name="category_id" ref="module_certificates_category"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_root'))]"/> -->
+    </record>
+<!-- 
+    <data noupdate="1">
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('abvo.group_abvo_certificates_manager'))]"/>
+        </record>
+    </data> -->
+</odoo>
