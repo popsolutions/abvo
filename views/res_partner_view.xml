@@ -43,7 +43,6 @@
                 </page>
             </xpath>
 
-
             <!-- <field name="certificates_lines" position="attributes">
               <attribute name="readonly">0</attribute> -->
               <!-- <attribute name="context">{'default_date': time.strftime('%Y-%m-%d')}</attribute> -->
