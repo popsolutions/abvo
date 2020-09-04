@@ -21,7 +21,7 @@
             <xpath expr="//page[last()]" position="after">
                 <page string="Certificados" name="certificates">
                     <group name="certificates">
-                        <field name="certificates_lines" attrs="{'readonly':False}">
+                        <field name="certificates_lines" attrs="{'readonly':False}" nolabel="1">
                             <form string="Hitos">
                               <field name="date"/>
                               <field name="certificate_type"/>
