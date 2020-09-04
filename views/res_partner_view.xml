@@ -4,10 +4,10 @@
         <field name="name">abvo.res.partner.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="priority" eval="100"/>
+        <field name="priority">200</field>
         <field name="arch" type="xml">
             <field name="vat" position="replace"/>
-            <xpath expr="//h1" position="after">
+            <xpath expr="//h1" position="replace">
                 <group>
                     <field name="estaleiro"/>
                     <field name="modelo"/>
@@ -18,10 +18,10 @@
                 </group>
             </xpath>
 
-            <xpath expr="//page[last()]" position="after">
+            <xpath expr="//page[last()]" position="after" attrs="{'invisible':[('is_boat', '==', False)]}">
                 <page string="Certificados" name="certificates">
                     <group name="certificates">
-                        <field name="certificates_lines" attrs="{'readonly':False}">
+                        <field name="certificates_lines" attrs="{'readonly':False}" nolabel="1">
                             <form string="Hitos">
                               <field name="date"/>
                               <field name="certificate_type"/>
@@ -43,10 +43,6 @@
                 </page>
             </xpath>
 
-            <!-- <field name="certificates_lines" position="attributes">
-              <attribute name="readonly">0</attribute> -->
-              <!-- <attribute name="context">{'default_date': time.strftime('%Y-%m-%d')}</attribute> -->
-            <!-- </field> -->
         </field>
     </record>
 </odoo>
