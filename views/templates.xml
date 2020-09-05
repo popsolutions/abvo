@@ -18,5 +18,36 @@
         <!--     </t> -->
         <!--   </dl> -->
         <!-- </template> -->
+
+        <!-- <template id="report_header_custom" inherit_id="portal.portal_my_home">
+            <xpath expr="//h3" position="after">
+                <div class ="header">
+                    Your Code
+                </div>
+            </xpath>
+        </template> -->
+        <template id="abvo_portal_my_home" name="Portal: Certificates" inherit_id="portal.portal_my_home" priority="40">
+            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">
+                <h3>Associações</h3>
+                <div class="associacoes-list list-group">
+                    <ul> 
+                      <li t-foreach="certificates" t-as="object">
+                        <p class="certificado">object.loa</p>
+                      </li>
+                    </ul>
+                </div>
+                
+            </xpath>
+            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">
+                <h3>Certificados</h3>
+                <div class="certificados-list list-group">
+                    <ul> 
+                      <li t-foreach="certificates" t-as="object">
+                        <p class="certificado">object.loa</p>
+                      </li>
+                    </ul>
+                </div>
+            </xpath>
+        </template>
     </data>
 </odoo>
