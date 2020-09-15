@@ -7,8 +7,8 @@
         <field name="priority">200</field>
         <field name="arch" type="xml">
             <field name="vat" position="replace"/>
-            <xpath expr="//h1" position="replace">
-                <group>
+            <xpath expr="//h1" position="after">
+                <group attrs="{'invisible':[('is_boat', '!=', True)]}">
                     <field name="estaleiro"/>
                     <field name="modelo"/>
                     <field name="loa"/>
@@ -18,9 +18,10 @@
                 </group>
             </xpath>
 
-            <xpath expr="//page[last()]" position="after" attrs="{'invisible':[('is_boat', '==', False)]}">
-                <page string="Certificados" name="certificates">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Certificados" name="certificates" attrs="{'invisible':[('is_boat', '!=', True)]}">
                     <group name="certificates">
+                        <field name="is_boat" invisible="0"/>
                         <field name="certificates_lines" attrs="{'readonly':False}" nolabel="1">
                             <form string="Hitos">
                               <field name="date"/>

@@ -8,7 +8,7 @@ class ResPartner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
 
-    company_type = fields.Selection(selection_add=[('boat','Embarcação')], 
+    company_type = fields.Selection(selection_add=[('boat','Embarcação')],
                                     compute='_compute_company_type', inverse='_write_company_type')
 
     estaleiro = fields.Char(u'Estaleiro')
@@ -23,27 +23,62 @@ class ResPartner(models.Model):
 
     is_boat = fields.Boolean(default=False)
 
-    def _write_company_type(self):
-        for partner in self:
-            if partner.company_type == 'boat':
-                self.is_boat = True
-                self.is_company = True
-            else:
-                partner.is_company = partner.company_type == 'company'
+    # def _write_company_type(self):
+    #     for partner in self:
+    #         if partner.company_type == 'boat':
+    #             self.is_boat = True
+    #             # self.is_company = True
+    #         else:
+    #             partner.is_company = partner.company_type == 'company'
+    #
+    # @api.depends('is_company')
+    # def _compute_company_type(self):
+    #     for partner in self:
+    #         if partner.is_boat:
+    #             partner.company_type = 'boat'
+    #         else:
+    #             partner.company_type = 'company' if partner.is_company else 'person'
+    #
+    # @api.onchange('company_type')
+    # def onchange_company_type(self):
+    #     for partner in self:
+    #         if partner.company_type == 'boat':
+    #             partner.is_boat = True
+    #             # self.is_company = True
+    #         else:
+    #             partner.is_company = (partner.company_type == 'company')
 
     @api.depends('is_company')
     def _compute_company_type(self):
         for partner in self:
-            if partner.is_boat == True:
+            # partner.company_type = 'company' if partner.is_company else 'person'
+
+            if partner.is_company:
+                partner.company_type = 'company'
+            elif partner.is_boat:
                 partner.company_type = 'boat'
             else:
-                partner.company_type = 'company' if partner.is_company else 'person'
+                partner.company_type = 'person'
+
+
+    def _write_company_type(self):
+        for partner in self:
+            # partner.is_company = partner.company_type == 'company'
+
+            if partner.company_type == 'company':
+                partner.is_company = True
+            elif partner.company_type == 'boat':
+                partner.is_boat = True
+
 
     @api.onchange('company_type')
     def onchange_company_type(self):
-        for partner in self:
-            if self.company_type == 'boat':
-                self.is_boat = True
-                self.is_company = True
-            else: 
-                self.is_company = (self.company_type == 'company')
+        if self.company_type == 'company':
+            self.is_company = True
+            self.is_boat = False
+        elif self.company_type == 'boat':
+            self.is_boat = True
+            self.is_company = False
+
+
+        # self.is_company = (self.company_type == 'company')
