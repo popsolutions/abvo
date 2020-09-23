@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "abvo",
+    'name': "Abvo",
 
     'summary': """
         Add Certificates to ABVO Website""",
