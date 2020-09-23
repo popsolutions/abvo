@@ -16,7 +16,7 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Membership Certification',
-    'version': '20.9.23',
+    'version': '12.20.9.23',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'portal', 'contacts', 'membership'],
