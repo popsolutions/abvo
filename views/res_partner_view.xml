@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority">200</field>
         <field name="arch" type="xml">
-            <field name="cpf_cnpj" position="replace"/>
+            <field name="vat" position="replace"/>
             <xpath expr="//h1" position="after">
                 <group attrs="{'invisible':[('is_boat', '!=', True)]}">
                     <field name="estaleiro"/>
