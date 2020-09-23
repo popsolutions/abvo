@@ -26,28 +26,113 @@
                 </div>
             </xpath>
         </template> -->
-        <template id="abvo_portal_my_home" name="Portal: Certificates" inherit_id="portal.portal_my_home" priority="40">
-            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">
-                <h3>Associações</h3>
-                <div class="associacoes-list list-group">
-                    <ul> 
-                      <li t-foreach="certificates" t-as="object">
-                        <p class="certificado">object.loa</p>
-                      </li>
-                    </ul>
-                </div>
-                
-            </xpath>
-            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">
-                <h3>Certificados</h3>
-                <div class="certificados-list list-group">
-                    <ul> 
-                      <li t-foreach="certificates" t-as="object">
-                        <p class="certificado">object.loa</p>
-                      </li>
-                    </ul>
-                </div>
-            </xpath>
-        </template>
+
+
+<!--        <template id="abvo_portal_my_home" name="Portal: Certificates" inherit_id="portal.portal_my_home" priority="40">-->
+<!--            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">-->
+<!--                <h3>Associações</h3>-->
+<!--                <div class="associacoes-list list-group">-->
+<!--                    <ul> -->
+<!--                      <li t-foreach="certificates" t-as="object">-->
+<!--                        <p class="certificado">object.loa</p>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                -->
+<!--            </xpath>-->
+<!--            <xpath expr="//div[@id='oe_structure_portal_my_home_2']" position="before">-->
+<!--                <h3>Certificados</h3>-->
+<!--                <div class="certificados-list list-group">-->
+<!--                    <ul> -->
+<!--                      <li t-foreach="certificates" t-as="object">-->
+<!--                        <p class="certificado">object.loa</p>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </xpath>-->
+<!--        </template>-->
+
+        <template id="portal_my_home_abvo" name="Portal My Home : Certificates" inherit_id="portal.portal_my_home" priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+<!--            <t t-if="certification_count" t-call="portal.portal_docs_entry">-->
+            <t t-if="cert_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Certifications</t>
+                <t t-set="url" t-value="'/my/certificates'"/>
+<!--                <t t-set="count" t-value="certification_count"/>-->
+                <t t-set="count" t-value="cert_count"/>
+            </t>
+
+<!--            <t t-if="boat_count" t-call="portal.portal_docs_entry">-->
+            <t t-if="False" t-call="portal.portal_docs_entry">
+                <t t-set="title">Boats</t>
+                <t t-set="url" t-value="'/my/boats'"/>
+<!--                <t t-set="count" t-value="boat_count"/>-->
+                <t t-set="count" t-value="4"/>
+            </t>
+        </xpath>
+    </template>
+
+
+
+    <template id="portal_my_certificates" name="My Certificates">
+      <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Certificates</t>
+        </t>
+        <t t-if="not certificates">
+            <p>There are currently no Certifications for your boats.</p>
+        </t>
+        <t t-if="certificates" t-call="portal.portal_table">
+            <thead>
+                <tr class="active">
+<!--                    <th>Invoice #</th>-->
+                    <th>Certificate Date</th>
+                    <th>Type</th>
+                    <th>Raiting</th>
+                    <th>Loa</th>
+                    <th>Invoice</th>
+                    <th>PDF</th>
+                    <!--                    <th class='d-none d-md-table-cell'>Due Date</th>-->
+                    <!--                    <th/>-->
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="certificates" t-as="certificate">
+                    <tr>
+<!--                        <td>-->
+<!--                            <a t-att-href="invoice.get_portal_url()" t-att-title="invoice.number">-->
+<!--                                <t t-esc="invoice.number" t-if="invoice.number"/>-->
+<!--                                <em t-else="">Draft Invoice</em>-->
+<!--                            </a>-->
+<!--                        </td>-->
+                        <td><span t-field="certificate.date"/></td>
+<!--                        <td class='d-none d-md-table-cell'><span t-field="invoice.date_due"/></td>-->
+<!--                        <td class="tx_status">-->
+<!--                            <t t-if="invoice.state == 'open'">-->
+<!--                                <span class="badge badge-pill badge-info"><i class="fa fa-fw fa-clock-o" aria-label="Opened" title="Opened" role="img"></i><span class="d-none d-md-inline"> Waiting for Payment</span></span>-->
+<!--                            </t>-->
+<!--                            <t t-if="invoice.state == 'paid'">-->
+<!--                                <span class="badge badge-pill badge-success"><i class="fa fa-fw fa-check" aria-label="Paid" title="Paid" role="img"></i><span class="d-none d-md-inline"> Paid</span></span>-->
+<!--                            </t>-->
+<!--                            <t t-if="invoice.state == 'cancel'">-->
+<!--                                <span class="badge badge-pill badge-warning"><i class="fa fa-fw fa-remove" aria-label="Cancelled" title="Cancelled" role="img"></i><span class="d-none d-md-inline"> Cancelled</span></span>-->
+<!--                            </t>-->
+<!--                        </td>-->
+<!--                        <td class="text-right"><span t-esc="-invoice.residual if invoice.type == 'out_refund' else invoice.residual" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'/></td>-->
+                        <td><span t-esc="certificate.certificate_type"/></td>
+                        <td><span t-esc="certificate.raiting"/></td>
+                        <td><span t-esc="certificate.loa"/></td>
+                        <td><span t-esc="certificate.invoice_id.number"/></td>
+                        <td><a t-if="certificate.pdf" t-att-href="('/my/home/certificates/%s/pdf' % certificate.id) " target="_blank">Download</a></td>
+                    </tr>
+                </t>
+            </tbody>
+        </t>
+      </t>
+    </template>
+
+
     </data>
 </odoo>

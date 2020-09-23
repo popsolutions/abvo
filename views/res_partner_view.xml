@@ -20,9 +20,12 @@
 
             <xpath expr="//page[last()]" position="after">
                 <page string="Certificados" name="certificates" attrs="{'invisible':[('is_boat', '!=', True)]}">
-                    <group name="certificates">
+                    <group name="certificates" col="2">
+                        <group col="2">
+
                         <field name="is_boat" invisible="0"/>
-                        <field name="certificates_lines" attrs="{'readonly':False}" nolabel="1">
+                        <field name="boat_owner_id" invisible="0"/>
+                        <field name="certificates_lines" attrs="{'readonly':False}" nolabel="1" colspan="2">
                             <form string="Hitos">
                               <field name="date"/>
                               <field name="certificate_type"/>
@@ -40,6 +43,7 @@
                               <field name="pdf"/>
                             </tree>  
                         </field>
+                            </group>
                     </group>
                 </page>
             </xpath>

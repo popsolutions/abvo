@@ -22,6 +22,7 @@ class ResPartner(models.Model):
                                          readonly=True, copy=True)
 
     is_boat = fields.Boolean(default=False)
+    boat_owner_id = fields.Many2one('res.partner', "Boat Owner")
 
     # def _write_company_type(self):
     #     for partner in self:
