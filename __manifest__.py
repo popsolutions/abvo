@@ -6,7 +6,7 @@
         Add Certificates to ABVO Website""",
 
     'description': """
-        Add Certificates to ABVO Website
+        Add Certificates to ABVO Website, manages membership by boat. Manage you local sailing association
     """,
 
     'author': "POPSOLUTIONS.CO",
@@ -15,7 +15,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Membership Certification',
     'version': '0.9.23',
 
     # any module necessary for this one to work correctly
