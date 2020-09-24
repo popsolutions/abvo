@@ -7,9 +7,11 @@
         <form>
             <grpup>
                 <field name="date"/>
+                <field name="name">
+                <field name="loa"/>
+                <field name="deslocamento">
                 <field name="certificate_type"/>
                 <field name="raiting"/>
-                <field name="loa"/>
                 <field name="invoice_id"/>
                 <field name="pdf"/>
             </grpup>  
