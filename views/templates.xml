@@ -121,7 +121,7 @@
 <!--                            </t>-->
 <!--                        </td>-->
 <!--                        <td class="text-right"><span t-esc="-invoice.residual if invoice.type == 'out_refund' else invoice.residual" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'/></td>-->
-                        <td><span t-esc="certificate.certificate_type"/></td>
+                        <td><span  t-esc="certificate.certificate_type" class="text-uppercase"/></td>
                         <td><span t-esc="certificate.raiting"/></td>
                         <td><span t-esc="certificate.loa"/></td>
                         <td><span t-esc="certificate.invoice_id.number"/></td>
@@ -133,6 +133,39 @@
       </t>
     </template>
 
+    <template id="website_partner_detail_inherited" inherit_id="website_partner.partner_detail">
+        <xpath expr="//div[@t-field='partner.website_description']" position="before">
+            <t t-if="not partner.certificates_lines">
+                <p>There are currently no Certifications for this boat.</p>
+            </t>
+            <div t-if="partner.certificates_lines">
+                <t t-if="partner.certificates_lines" t-call="portal.portal_table">
+                    <thead class="thead-light">
+                        <tr class="active">
+                            <th>Certificate Date</th>
+                            <th>Type</th>
+                            <th>Raiting</th>
+                            <th>Loa</th>
+                            <th>Invoice</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="partner.certificates_lines" t-as="certificate">
+                            <tr>
+                                <td><span t-field="certificate.date"/></td>
+                                <td><span t-esc="certificate.certificate_type" class="text-uppercase" /></td>
+                                <td><span t-esc="certificate.raiting"/></td>
+                                <td><span t-esc="certificate.loa"/></td>
+                                <td><span t-esc="certificate.invoice_id.number"/></td>
+                                <td><a t-if="certificate.pdf" t-att-href="('/my/home/certificates/%s/pdf' % certificate.id) " target="_blank">Download</a></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </div>
+        </xpath>
+    </template>
 
     </data>
 </odoo>
