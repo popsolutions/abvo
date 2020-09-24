@@ -7,8 +7,8 @@
         <form>
             <grpup>
                 <field name="date"/>
-                <field name="res.partner_name"/>
                 <field name="loa"/>
+                <field name="deslocamento/">
                 <field name="certificate_type"/>
                 <field name="raiting"/>
                 <field name="invoice_id"/>
