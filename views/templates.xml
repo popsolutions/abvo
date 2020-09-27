@@ -179,7 +179,7 @@
                     <div class="col-sm-8">
                         <form action="/shop/confirm_order" method="POST">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <select name="boat_id" id="boat_id_field" class="form-control" required="">
+                        <select name="boat_id" id="boat_id_field" class="form-control" >
                             <option t-att-value="0" selected="selected"><span>Select a Boat</span></option>
                             <t t-foreach="order.partner_id.owned_boat_ids" t-as="boat">
                                 <option t-att-value="boat.id"><span t-field="boat.name"/></option>
@@ -193,7 +193,7 @@
                                 Name
                             </label>
                             <div>
-                                <input type="text" name="name" class="form-control" id="name_field" required="" pattern="^[A-Za-z -]+$" maxlength="120"/>
+                                <input type="text" name="name" class="form-control" id="name_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -201,7 +201,7 @@
                                 Estaleiro
                             </label>
                             <div>
-                                <input type="text" name="estaleiro" class="form-control" id="estaleiro_field" required="" pattern="^[A-Za-z -]+$" maxlength="120"/>
+                                <input type="text" name="estaleiro" class="form-control" id="estaleiro_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -209,7 +209,7 @@
                                 Modelo
                             </label>
                             <div>
-                                <input type="text" name="modelo" class="form-control" id="modelo_field" required="" pattern="^[A-Za-z -]+$" maxlength="120"/>
+                                <input type="text" name="modelo" class="form-control" id="modelo_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -217,7 +217,7 @@
                                 Loa
                             </label>
                             <div>
-                                <input type="text" name="loa" class="form-control" id="loa_field" required="" pattern="[0-9]+(\.[0-9]{0,2})?" maxlength="20"/>
+                                <input type="text" name="loa" class="form-control" id="loa_field"  pattern="[0-9]+(\.[0-9]{0,2})?" maxlength="20"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -225,7 +225,7 @@
                                 Deslocamento
                             </label>
                             <div>
-                                <input type="text" name="deslocamento" class="form-control" id="deslocamento_field" pattern="\d*" required="" maxlength="15"/>
+                                <input type="text" name="deslocamento" class="form-control" id="deslocamento_field" pattern="\d*"  maxlength="15"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -233,7 +233,7 @@
                                 Numeral
                             </label>
                             <div>
-                                <input type="text" name="numeral" class="form-control" id="numeral_field" required="" pattern="^[A-Za-z -]+$" maxlength="120"/>
+                                <input type="text" name="numeral" class="form-control" id="numeral_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
                             </div>
                         </div>
 <!--                        <div class="form-group">-->
@@ -241,7 +241,7 @@
 <!--                                Club-->
 <!--                            </label>-->
 <!--                            <div>-->
-<!--                                <select name="club_id" id="club_id_field" class="form-control" required="">-->
+<!--                                <select name="club_id" id="club_id_field" class="form-control" >-->
 <!--                                    <option t-att-value="0" selected="selected"><span>Select a Club</span></option>-->
 <!--                                    <option t-att-value="45"><span>Club X</span></option>-->
 <!--                                    <option t-att-value="46"><span>Club Y</span></option>-->
