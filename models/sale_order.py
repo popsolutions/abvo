@@ -12,5 +12,6 @@ class SaleOrder(models.Model):
     @api.multi
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
-        invoice_vals.update({'boat_id': self.boat_id.id})
+        if self.boat_id:
+            invoice_vals.update({'boat_id': self.boat_id.id})
         return invoice_vals

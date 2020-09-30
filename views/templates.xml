@@ -167,73 +167,89 @@
         </xpath>
     </template>
 
-    <template id="website_sale_boat_information" inherit_id="website_sale.checkout">
-        <xpath expr="//t[@t-if='not only_services']" position="after">
-            <br/>
-            <div class="o_page_header mt8">
+    <template id="website_sale_boat_information" inherit_id="website_sale.extra_info">
+        <xpath expr="//form[@action='/website_form/']" position="replace">
+        <form action="/website_form/" method="post" class="s_website_form container-fluid" enctype="multipart/form-data" data-force_action="shop.sale.order" data-model_name="sale.order" data-success_page="/shop/payment">
 
-                <!-- SELECT A BOAT -->
-                <h3 class="mb2">Select a Boat</h3>
-                <div>
-<!--                    <ul>-->
-                    <div class="col-sm-8">
-                        <form action="/shop/confirm_order" method="POST">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                        <select name="boat_id" id="boat_id_field" class="form-control" >
-                            <option t-att-value="0" selected="selected"><span>Select a Boat</span></option>
-                            <t t-foreach="order.partner_id.owned_boat_ids" t-as="boat">
-                                <option t-att-value="boat.id"><span t-field="boat.name"/></option>
-                            </t>
-                        </select>
+                        <h4 class="mb2 mt24 text-center">Select a Boat  <span class="fa fa-chevron-circle-down" /></h4>
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="boat_id">Boat</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <select name="boat_id" id="boat_id_field" class="form-control" >
+                                    <option value="" selected="selected"><span t-if="not order.partner_id.owned_boat_ids">No Boats!</span></option>
+                                    <t t-foreach="order.partner_id.owned_boat_ids" t-as="boat">
+                                        <option t-att-value="boat.id"><span t-field="boat.name"/></option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr/>
 
                         <!-- ADD A NEW BOAT -->
-                        <h4 class="mb2 mt24">or Add a new Boat</h4>
-                        <div class="form-group">
-                            <label for="name" class="control-label col-sm-2">
-                                Name
-                            </label>
-                            <div>
-                                <input type="text" name="name" class="form-control" id="name_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
+                        <h4 class="mb2 mt24 text-center">or Add a new Boat  <span class="fa fa-plus-circle" /></h4>
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="name">Name</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="name"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="estaleiro" class="control-label col-sm-2">
-                                Estaleiro
-                            </label>
-                            <div>
-                                <input type="text" name="estaleiro" class="form-control" id="estaleiro_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="estaleiro">Estaleiro</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="estaleiro"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="modelo" class="control-label col-sm-2">
-                                Modelo
-                            </label>
-                            <div>
-                                <input type="text" name="modelo" class="form-control" id="modelo_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="modelo">Modelo</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="modelo"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="loa" class="control-label col-sm-2">
-                                Loa
-                            </label>
-                            <div>
-                                <input type="text" name="loa" class="form-control" id="loa_field"  pattern="[0-9]+(\.[0-9]{0,2})?" maxlength="20"/>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="loa">Loa</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="loa"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="deslocamento" class="control-label col-sm-2">
-                                Deslocamento
-                            </label>
-                            <div>
-                                <input type="text" name="deslocamento" class="form-control" id="deslocamento_field" pattern="\d*"  maxlength="15"/>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="deslocamento">Deslocamento</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="deslocamento"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="numeral" class="control-label col-sm-2">
-                                Numeral
-                            </label>
-                            <div>
-                                <input type="text" name="numeral" class="form-control" id="numeral_field"  pattern="^[A-Za-z -]+$" maxlength="120"/>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="numeral">Numeral</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="numeral"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-4">
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <a role="button" href="/shop/checkout" class="btn btn-secondary mb32 float-left"><span class="fa fa-chevron-left" /> Previous</a>
+                                <a role="button" class="btn btn-primary float-right mb32 o_website_form_send" href="/shop/confirm_order">Next <span class="fa fa-chevron-right" /></a>
                             </div>
                         </div>
 <!--                        <div class="form-group">-->
@@ -253,13 +269,7 @@
 <!--                                </select>-->
 <!--                            </div>-->
 <!--                        </div>-->
-
-                        <input type='submit' class="mt24"/>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
+        </form>
         </xpath>
 
     </template>

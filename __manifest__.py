@@ -24,7 +24,9 @@
                 'portal',
                 'contacts',
                 'membership',
-                'website_membership'],
+                'website_membership',
+                'l10n_br_base',
+                ],
 
     # always loaded
     'data': [

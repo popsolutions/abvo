@@ -26,16 +26,18 @@ class AccountInvoiceLineAbvo(models.Model):
     def write(self, vals):
         MemberLine = self.env['membership.membership_line']
         res = super(AccountInvoiceLineAbvo, self).write(vals)
-        member_lines = MemberLine.search([('account_invoice_line', '=', res.id)])
-        member_lines.write({
-                'partner': res.invoice_id.boat_id.id})
+        if res.invoice_id.boat_id:
+            member_lines = MemberLine.search([('account_invoice_line', '=', res.id)])
+            member_lines.write({
+                    'partner': res.invoice_id.boat_id.id})
         return res
 
     @api.model
     def create(self, vals):
         MemberLine = self.env['membership.membership_line']
         invoice_line = super(AccountInvoiceLineAbvo, self).create(vals)
-        member_lines = MemberLine.search([('account_invoice_line', '=', invoice_line.id)])
-        member_lines.write({
-            'partner': invoice_line.invoice_id.boat_id.id})
+        if invoice_line.invoice_id.boat_id:
+            member_lines = MemberLine.search([('account_invoice_line', '=', invoice_line.id)])
+            member_lines.write({
+                'partner': invoice_line.invoice_id.boat_id.id})
         return invoice_line

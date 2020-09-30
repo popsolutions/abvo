@@ -6,7 +6,7 @@ import io
 from odoo import http, _
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 from odoo.addons.payment.controllers.portal import PaymentProcessing
-from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.website_sale.controllers.main import WebsiteSaleForm
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.tools.mimetypes import guess_mimetype
@@ -124,14 +124,18 @@ class PortalABVOCertificates(CustomerPortal):
         return http.send_file(pdf_data, filename=pdfname + pdfext, mimetype=mimetype, mtime=cert_obj.write_date)
 
 
-class CustomWebsiteSaleAbvo(WebsiteSale):
+class CustomWebsiteSaleFormAbvo(WebsiteSaleForm):
 
-    @http.route(['/shop/confirm_order'], type='http', auth="public", website=True, sitemap=False)
-    def confirm_order(self, **post):
+    @http.route('/website_form/shop.sale.order', type='http', auth="public", methods=['POST'], website=True)
+    def website_form_saleorder(self, **post):
 
         boat_name = post.get('name')
-        if boat_name:
-            boat_id = request.env['res.partner'].create({
+        boat_id = None
+
+        if post.get('boat_id'):
+            boat_id = post.get('boat_id')
+        elif boat_name:
+            boat_id = request.env['res.partner'].sudo().create({
                 'name': boat_name,
                 'estaleiro': post.get('estaleiro'),
                 'modelo': post.get('modelo'),
@@ -142,5 +146,9 @@ class CustomWebsiteSaleAbvo(WebsiteSale):
                 'boat_owner_id': request.env.user.partner_id.id,
                 'is_boat': True,
             })
-            request.params['boat_id'] = boat_id.id
-        return super(CustomWebsiteSaleAbvo, self).confirm_order(**post)
+            boat_id = boat_id.id
+
+        if boat_id:
+            order = request.website.sale_get_order()
+            order.sudo().write({'boat_id': boat_id})
+        return super(CustomWebsiteSaleFormAbvo, self).website_form_saleorder(**post)
