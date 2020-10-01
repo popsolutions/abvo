@@ -16,13 +16,12 @@ class ResPartner(models.Model):
     loa = fields.Float(u'Loa')
     deslocamento = fields.Integer(u'Deslocamento')
     numeral = fields.Char(u'Numeral')
-    clube = fields.Char(u'Clube')
-
+    club_id = fields.Many2one('res.partner', 'Club')
     certificates_lines = fields.One2many('abvo.certificates', 'partner_id',
                                          readonly=True, copy=True)
-
     is_boat = fields.Boolean(default=False)
     boat_owner_id = fields.Many2one('res.partner', "Boat Owner")
+    owned_boat_ids = fields.One2many('res.partner', 'boat_owner_id', 'Owned Boats')
 
     # def _write_company_type(self):
     #     for partner in self:
@@ -83,3 +82,8 @@ class ResPartner(models.Model):
 
 
         # self.is_company = (self.company_type == 'company')
+
+    @api.multi
+    def get_clubs(self):
+        # ToDo: Get Clubs
+        pass

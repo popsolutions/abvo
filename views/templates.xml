@@ -121,7 +121,7 @@
 <!--                            </t>-->
 <!--                        </td>-->
 <!--                        <td class="text-right"><span t-esc="-invoice.residual if invoice.type == 'out_refund' else invoice.residual" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'/></td>-->
-                        <td><span t-esc="certificate.certificate_type"/></td>
+                        <td><span  t-esc="certificate.certificate_type" class="text-uppercase"/></td>
                         <td><span t-esc="certificate.raiting"/></td>
                         <td><span t-esc="certificate.loa"/></td>
                         <td><span t-esc="certificate.invoice_id.number"/></td>
@@ -133,6 +133,146 @@
       </t>
     </template>
 
+    <template id="website_partner_detail_inherited" inherit_id="website_partner.partner_detail">
+        <xpath expr="//div[@t-field='partner.website_description']" position="before">
+            <t t-if="not partner.certificates_lines">
+                <p>There are currently no Certifications for this boat.</p>
+            </t>
+            <div t-if="partner.certificates_lines">
+                <t t-if="partner.certificates_lines" t-call="portal.portal_table">
+                    <thead class="thead-light">
+                        <tr class="active">
+                            <th>Certificate Date</th>
+                            <th>Type</th>
+                            <th>Raiting</th>
+                            <th>Loa</th>
+                            <th>Invoice</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="partner.certificates_lines" t-as="certificate">
+                            <tr>
+                                <td><span t-field="certificate.date"/></td>
+                                <td><span t-esc="certificate.certificate_type" class="text-uppercase" /></td>
+                                <td><span t-esc="certificate.raiting"/></td>
+                                <td><span t-esc="certificate.loa"/></td>
+                                <td><span t-esc="certificate.invoice_id.number"/></td>
+                                <td><a t-if="certificate.pdf" t-att-href="('/my/home/certificates/%s/pdf' % certificate.id) " target="_blank">Download</a></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="website_sale_boat_information" inherit_id="website_sale.extra_info">
+        <xpath expr="//form[@action='/website_form/']" position="replace">
+        <form action="/website_form/" method="post" class="s_website_form container-fluid" enctype="multipart/form-data" data-force_action="shop.sale.order" data-model_name="sale.order" data-success_page="/shop/payment">
+
+                        <h4 class="mb2 mt24 text-center">Select a Boat  <span class="fa fa-chevron-circle-down" /></h4>
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="boat_id">Boat</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <select name="boat_id" id="boat_id_field" class="form-control" >
+                                    <option value="" selected="selected"><span t-if="not order.partner_id.owned_boat_ids">No Boats!</span></option>
+                                    <t t-foreach="order.partner_id.owned_boat_ids" t-as="boat">
+                                        <option t-att-value="boat.id"><span t-field="boat.name"/></option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <!-- ADD A NEW BOAT -->
+                        <h4 class="mb2 mt24 text-center">or Add a new Boat  <span class="fa fa-plus-circle" /></h4>
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="name">Name</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="name"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="estaleiro">Estaleiro</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="estaleiro"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="modelo">Modelo</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="modelo"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="loa">Loa</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="loa"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="deslocamento">Deslocamento</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="deslocamento"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row form-field o_website_form_custom">
+                            <div class="col-lg-3 col-md-4 text-md-right">
+                                <label class="col-form-label" for="numeral">Numeral</label>
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <input type="text" class="form-control o_website_form_input" name="numeral"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-4">
+                            </div>
+                            <div class="col-lg-9 col-md-8">
+                                <a role="button" href="/shop/checkout" class="btn btn-secondary mb32 float-left"><span class="fa fa-chevron-left" /> Previous</a>
+                                <a role="button" class="btn btn-primary float-right mb32 o_website_form_send" href="/shop/confirm_order">Next <span class="fa fa-chevron-right" /></a>
+                            </div>
+                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="club" class="control-label col-sm-2">-->
+<!--                                Club-->
+<!--                            </label>-->
+<!--                            <div>-->
+<!--                                <select name="club_id" id="club_id_field" class="form-control" >-->
+<!--                                    <option t-att-value="0" selected="selected"><span>Select a Club</span></option>-->
+<!--                                    <option t-att-value="45"><span>Club X</span></option>-->
+<!--                                    <option t-att-value="46"><span>Club Y</span></option>-->
+<!--                                    <option t-att-value="Z"><span>Club Z</span></option>-->
+<!--                                        &lt;!&ndash; ToDo: Create method to get all clubs &ndash;&gt;-->
+<!--    &lt;!&ndash;                                <t t-foreach="partner.get_clubs()" t-as="club">&ndash;&gt;-->
+<!--    &lt;!&ndash;                                    <option t-att-value="club.id"><span t-field="club.name"/></option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+        </form>
+        </xpath>
+
+    </template>
 
     </data>
 </odoo>

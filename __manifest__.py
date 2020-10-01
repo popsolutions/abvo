@@ -19,7 +19,14 @@
     'version': '12.20.9.23',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'portal', 'contacts', 'membership'],
+    'depends': ['base',
+                'sale',
+                'portal',
+                'contacts',
+                'membership',
+                'website_membership',
+                'l10n_br_base',
+                ],
 
     # always loaded
     'data': [
