@@ -115,7 +115,7 @@ class PortalABVOCertificates(CustomerPortal):
     @http.route(['/my/home/certificates/<int:cert_id>/pdf'], type='http', auth="user", website=True)
     def get_certification_pdf(self, cert_id):
         pdfname = "test"
-        cert_obj = request.env['abvo.certificates'].browse(cert_id)
+        cert_obj = request.env['abvo.certificates'].sudo().browse(cert_id)
         cert_pdf = cert_obj.pdf
         pdf_base64 = base64.b64decode(cert_pdf)
         pdf_data = io.BytesIO(pdf_base64)
