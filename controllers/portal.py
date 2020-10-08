@@ -112,7 +112,7 @@ class PortalABVOCertificates(CustomerPortal):
     #     PaymentProcessing.remove_payment_transaction(invoice_sudo.transaction_ids)
     #     return request.render("account.portal_invoice_page", values)
 
-    @http.route(['/my/home/certificates/<int:cert_id>/pdf'], type='http', auth="user", website=True)
+    @http.route(['/my/home/certificates/<int:cert_id>/pdf'], type='http', auth="public", website=True)
     def get_certification_pdf(self, cert_id):
         pdfname = "test"
         cert_obj = request.env['abvo.certificates'].sudo().browse(cert_id)
