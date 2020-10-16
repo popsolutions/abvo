@@ -7,6 +7,7 @@ from odoo import http, _
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 from odoo.addons.payment.controllers.portal import PaymentProcessing
 from odoo.addons.website_sale.controllers.main import WebsiteSaleForm
+from odoo.addons.website_membership.controllers.main import WebsiteMembership
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.tools.mimetypes import guess_mimetype
@@ -152,3 +153,41 @@ class CustomWebsiteSaleFormAbvo(WebsiteSaleForm):
             order = request.website.sale_get_order()
             order.sudo().write({'boat_id': boat_id})
         return super(CustomWebsiteSaleFormAbvo, self).website_form_saleorder(**post)
+
+
+class AbvoWebsiteMembership(WebsiteMembership):
+
+    @staticmethod
+    def _sort_members_set_by_name(members_set):
+        return request.env['res.partner'].browse(members_set).sorted('name').ids
+
+    def _sort_and_filter_members(self, members=None):
+        if members:
+            for m_line, partners in members.items():
+                members.update({m_line: self._sort_members_set_by_name(set(partners))})
+        return members
+
+    @http.route([
+        '/members',
+        '/members/page/<int:page>',
+        '/members/association/<membership_id>',
+        '/members/association/<membership_id>/page/<int:page>',
+
+        '/members/country/<int:country_id>',
+        '/members/country/<country_name>-<int:country_id>',
+        '/members/country/<int:country_id>/page/<int:page>',
+        '/members/country/<country_name>-<int:country_id>/page/<int:page>',
+
+        '/members/association/<membership_id>/country/<country_name>-<int:country_id>',
+        '/members/association/<membership_id>/country/<int:country_id>',
+        '/members/association/<membership_id>/country/<country_name>-<int:country_id>/page/<int:page>',
+        '/members/association/<membership_id>/country/<int:country_id>/page/<int:page>',
+    ], type='http', auth="public", website=True)
+    def members(self, membership_id=None, country_name=None, country_id=0, page=1, **post):
+        res = super(AbvoWebsiteMembership, self).members(membership_id, country_name, country_id, page, **post)
+        memberships_partner_ids = res.qcontext.get('memberships_partner_ids')
+        res.qcontext.update(
+            {'memberships_partner_ids': self._sort_and_filter_members(
+                memberships_partner_ids)}
+        )
+        return res
