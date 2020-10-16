@@ -144,8 +144,8 @@
                         <tr class="active">
                             <th>Certificate Date</th>
                             <th>Type</th>
-                            <th>Raiting</th>
-                            <th>Loa</th>
+                            <th>Rating</th>
+                            <th>LOA</th>
                             <th>Invoice</th>
                             <th>PDF</th>
                         </tr>
@@ -224,7 +224,7 @@
 
                         <div class="form-group row form-field o_website_form_custom">
                             <div class="col-lg-3 col-md-4 text-md-right">
-                                <label class="col-form-label" for="loa">Loa</label>
+                                <label class="col-form-label" for="loa">LOA (Somente numeros! Em ft)</label>
                             </div>
                             <div class="col-lg-9 col-md-8">
                                 <input type="text" class="form-control o_website_form_input" name="loa"/>
