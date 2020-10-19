@@ -159,7 +159,7 @@ class AbvoWebsiteMembership(WebsiteMembership):
 
     @staticmethod
     def _sort_members_set_by_name(members_set):
-        return request.env['res.partner'].browse(members_set).sorted('name').ids
+        return request.env['res.partner'].sudo().browse(members_set).sorted('name').ids
 
     def _sort_and_filter_members(self, members=None):
         if members:
