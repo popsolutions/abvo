@@ -23,3 +23,9 @@ de gestão de embarcações, regatas, classes, eventos e principalmente o desenv
 transparentes e objetivos.
 
 Este repositório segue o guia ético e moral da POPSOLUTIONS.CO, para mais informações contatar o mantenedor chefe
+
+MODULOS OCA Instalados para manutenção da infra estrutura: 
+
+https://github.com/OCA
+
+website, vertical-association, l10n-brazil, web, backend_theme, server-tools, payment_pagseguro, e-commerce, server-ux
